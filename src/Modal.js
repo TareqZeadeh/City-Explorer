@@ -13,7 +13,7 @@ class Modal extends React.Component {
     render() {
 
 
-
+console.log(this.props.weatherinfo);
 
         return (
             <>
@@ -29,6 +29,9 @@ class Modal extends React.Component {
                             <Card.Text style={{ textAlign: 'center' }}>
                                 <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.43fed3791d35ddb76aa14f749c6d3080&center=${this.props.lat},${this.props.lon}`} alt='map' />
                             </Card.Text>
+                            {/* <Card.Text style={{ textAlign: 'center' }}>
+                            {this.props.weatherinfo}
+                            </Card.Text> */}
 
                         </Card.Body>
                     </Card>
