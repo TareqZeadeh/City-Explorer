@@ -4,52 +4,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 class Weather extends React.Component {
-   
-    render() {
 
-
-
-
+    render() {console.log(this.props.showmap);
         return (
             <>
                 {
                     this.props.showmap &&
+                    this.props.weatherinfo.map(foscastobj => {
+                        return (<Card style={{ border: 'groove' }}>
+                            <Card.Header style={{ textAlign: 'center' }} as="h3">
+                                {foscastobj.date}
+                            </Card.Header>
+                            <Card.Header style={{ textAlign: 'center' }} as="h3">
+                                {foscastobj.description}
+                            </Card.Header>
+                        </Card>
+                        )
 
-                  
-
-
-                    <Card  style={{ border: 'groove' }}>
-                        <Card.Header style={{ textAlign: 'center' }} as="h3">{this.props.name} </Card.Header>
-                        <Card.Body>
-
-                            <Card.Text style={{ textAlign: 'center' }}>
-                            {this.props.weatherinfo1date}
-                            </Card.Text>
-                            <Card.Text style={{ textAlign: 'center' }}>
-                            {this.props.weatherinfo1description}
-                            </Card.Text>
-                            <Card.Text style={{ textAlign: 'center' }}>
-                            {this.props.weatherinfo2date}
-                            </Card.Text>
-                            <Card.Text style={{ textAlign: 'center' }}>
-                            {this.props.weatherinfo2description}
-                            </Card.Text>
-                            <Card.Text style={{ textAlign: 'center' }}>
-                            {this.props.weatherinfo3date}
-                            </Card.Text>
-                            <Card.Text style={{ textAlign: 'center' }}>
-                            {this.props.weatherinfo3description}
-                            </Card.Text>
-                        
-                        </Card.Body>
-                    </Card>
-
+                    })
                 }
-
-
-
-
-
 
             </>
 
@@ -57,7 +30,6 @@ class Weather extends React.Component {
     }
 
 }
-
 
 
 

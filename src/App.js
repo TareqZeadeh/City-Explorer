@@ -20,63 +20,64 @@ class App extends React.Component {
       showmap: false,
       errormsg: 'Bad Response , No Results',
       displayerr: false,
-      weatherinfo1date: '',
-      weatherinfo2date: '',
-      weatherinfo3date: '',
-      weatherinfo1description: '',
-      weatherinfo2description: '',
-      weatherinfo3description: '',
-      weatherinfoerr:''
+      // weatherinfo1date: '',
+      // weatherinfo2date: '',
+      // weatherinfo3date: '',
+      // weatherinfo1description: '',
+      // weatherinfo2description: '',
+      // weatherinfo3description: '',
+      weatherinfoerr:'',
+      weatherinfo:[],
     }
   }
   getlocationdata = async (event) => {
     event.preventDefault();
     let cityname = event.target.cityname.value;
     let url = `https://eu1.locationiq.com/v1/search.php?key=pk.b0f373df36ce8d03dec337f6f3d2f107&q=${cityname}&format=json`;
-    let URL = '';
+    
     console.log(cityname);
 
 
-    if (cityname === 'amman' || cityname === 'AMMAN') {
+    // if (cityname === 'amman' || cityname === 'AMMAN') {
 
-      URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=31.95&lon=35.91&searchQuery=Amman`;
-      let weatherData = await axios.get(URL);
-      this.setState({
-        weatherinfo1date: weatherData.data[0].date,
-        weatherinfo2date: weatherData.data[1].date,
-        weatherinfo3date: weatherData.data[2].date,
-        weatherinfo1description: weatherData.data[0].description,
-        weatherinfo2description: weatherData.data[1].description,
-        weatherinfo3description: weatherData.data[2].description,
-      })
+    //   URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=31.95&lon=35.91&searchQuery=Amman`;
+    //   let weatherData = await axios.get(URL);
+    //   this.setState({
+    //     weatherinfo1date: weatherData.data[0].date,
+    //     weatherinfo2date: weatherData.data[1].date,
+    //     weatherinfo3date: weatherData.data[2].date,
+    //     weatherinfo1description: weatherData.data[0].description,
+    //     weatherinfo2description: weatherData.data[1].description,
+    //     weatherinfo3description: weatherData.data[2].description,
+    //   })
 
 
-    }
-    else if (cityname === 'paris' || cityname === 'PARIS') {
+    // }
+    // else if (cityname === 'paris' || cityname === 'PARIS') {
 
-      URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=48.86&lon=2.35&searchQuery=Paris`;
-      let weatherData = await axios.get(URL);
-      this.setState({
-        weatherinfo1date: weatherData.data[0].date,
-        weatherinfo2date: weatherData.data[1].date,
-        weatherinfo3date: weatherData.data[2].date,
-        weatherinfo1description: weatherData.data[0].description,
-        weatherinfo2description: weatherData.data[1].description,
-        weatherinfo3description: weatherData.data[2].description,
-      })
-    }
-    else if (cityname === 'seattle' || cityname === 'SEATTLE') {
-      URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=47.60621&lon=-122.33207&searchQuery=Seattle`;
-      let weatherData = await axios.get(URL);
-      this.setState({
-        weatherinfo1date: weatherData.data[0].date,
-        weatherinfo2date: weatherData.data[1].date,
-        weatherinfo3date: weatherData.data[2].date,
-        weatherinfo1description: weatherData.data[0].description,
-        weatherinfo2description: weatherData.data[1].description,
-        weatherinfo3description: weatherData.data[2].description,
-      })
-    }
+    //   URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=48.86&lon=2.35&searchQuery=Paris`;
+    //   let weatherData = await axios.get(URL);
+    //   this.setState({
+    //     weatherinfo1date: weatherData.data[0].date,
+    //     weatherinfo2date: weatherData.data[1].date,
+    //     weatherinfo3date: weatherData.data[2].date,
+    //     weatherinfo1description: weatherData.data[0].description,
+    //     weatherinfo2description: weatherData.data[1].description,
+    //     weatherinfo3description: weatherData.data[2].description,
+    //   })
+    // }
+    // else if (cityname === 'seattle' || cityname === 'SEATTLE') {
+    //   URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=47.60621&lon=-122.33207&searchQuery=Seattle`;
+    //   let weatherData = await axios.get(URL);
+    //   this.setState({
+    //     weatherinfo1date: weatherData.data[0].date,
+    //     weatherinfo2date: weatherData.data[1].date,
+    //     weatherinfo3date: weatherData.data[2].date,
+    //     weatherinfo1description: weatherData.data[0].description,
+    //     weatherinfo2description: weatherData.data[1].description,
+    //     weatherinfo3description: weatherData.data[2].description,
+    //   })
+    // }
    
 
 
@@ -89,8 +90,13 @@ class App extends React.Component {
         lat: explorresult.data[0].lat,
         showmap: true,
        
+      });
+      let URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${cityname}`;
+      let weatherData = await axios.get(URL);
+      this.setState({
+        weatherinfo:weatherData.data
       })
-
+      console.log(weatherData.data)
     }
     catch {
       this.setState({
@@ -142,10 +148,10 @@ class App extends React.Component {
         {/* <p>{this.state.displayname} , {this.state.lat} , {this.state.lon} </p> */}
 
         {/* {this.state.showmap &&  */}
-        <Modal name={this.state.displayname} lat={this.state.lat} lon={this.state.lon} displayerr={this.state.displayerr} showmap={this.state.showmap} errormsg={this.state.errormsg} weatherinfo={this.state.weatherinfo} />
+        <Modal name={this.state.displayname} lat={this.state.lat} lon={this.state.lon} displayerr={this.state.displayerr} showmap={this.state.showmap} errormsg={this.state.errormsg}  />
         
 
-        <Weather weatherinfo1date={this.state.weatherinfo1date} weatherinfo2date={this.state.weatherinfo2date} weatherinfo3date={this.state.weatherinfo3date} weatherinfo1description={this.state.weatherinfo1description} weatherinfo2description={this.state.weatherinfo2description} weatherinfo3description={this.state.weatherinfo3description} showmap={this.state.showmap} weatherinfoerr={this.state.weatherinfoerr} displayerr={this.state.displayerr}/>
+        <Weather weatherinfo={this.state.weatherinfo} showmap={this.state.showmap}/>
         {/* } */}
 
 
