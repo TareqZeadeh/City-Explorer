@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Modal from './Modal';
 import Weather from './Weather';
+import Movies from './Movies'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -26,7 +27,7 @@ class App extends React.Component {
       // weatherinfo1description: '',
       // weatherinfo2description: '',
       // weatherinfo3description: '',
-      weatherinfoerr:'',
+      Movieslist:[],
       weatherinfo:[],
     }
   }
@@ -91,12 +92,23 @@ class App extends React.Component {
         showmap: true,
        
       });
-      let URL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${cityname}`;
-      let weatherData = await axios.get(URL);
+
+
+      let WeatherURL = `${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.lat}&lon=${this.state.lon}&searchQuery=${cityname}`;
+      let weatherData = await axios.get(WeatherURL);
       this.setState({
         weatherinfo:weatherData.data
-      })
-      console.log(weatherData.data)
+      });
+
+
+      let MoviesUrl=`${process.env.REACT_APP_SERVER_URL}/movies?searchQuery=${cityname}`;
+      let moviesData= await axios.get(MoviesUrl)
+      this.setState({
+        Movieslist:moviesData.data
+      });
+
+      console.log(weatherData.data);
+      console.log(moviesData.data);
     }
     catch {
       this.setState({
@@ -145,21 +157,14 @@ class App extends React.Component {
           </Button>
 
         </Form>
-        {/* <p>{this.state.displayname} , {this.state.lat} , {this.state.lon} </p> */}
-
-        {/* {this.state.showmap &&  */}
+        
         <Modal name={this.state.displayname} lat={this.state.lat} lon={this.state.lon} displayerr={this.state.displayerr} showmap={this.state.showmap} errormsg={this.state.errormsg}  />
         
 
         <Weather weatherinfo={this.state.weatherinfo} showmap={this.state.showmap}/>
-        {/* } */}
-
-
-        {/* { 
-       this.state.displayerr && 
-       this.state.errormsg 
-       } */}
-
+        
+        
+        <Movies Movieslist={this.state.Movieslist} showmap={this.state.showmap}/>
 
 
 
@@ -170,4 +175,3 @@ class App extends React.Component {
 }
 
 export default App;
-/* <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.43fed3791d35ddb76aa14f749c6d3080&center=${this.state.lat},${this.state.lon}`} alt='map' /> */
