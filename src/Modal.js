@@ -13,7 +13,7 @@ class Modal extends React.Component {
     render() {
 
 
-// console.log(this.props.weatherinfo);
+        // console.log(this.props.weatherinfo);
 
         return (
             <>
@@ -39,10 +39,10 @@ class Modal extends React.Component {
                 }
 
 
-{ 
-       this.props.displayerr && <Card my-15 style={{ border: 'groove' }}><Card.Text style={{ textAlign: 'center', fontSize:'300%', color:'red'   }}>{this.props.errormsg} </Card.Text></Card>
-        
-       }
+                {
+                    this.props.displayerr && <Card my-15 style={{ border: 'groove' }}><Card.Text style={{ textAlign: 'center', fontSize: '300%', color: 'red' }}>{this.props.errormsg} </Card.Text></Card>
+
+                }
 
 
 
